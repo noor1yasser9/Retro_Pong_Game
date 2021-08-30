@@ -1,4 +1,4 @@
-package com.noor.yasser.ps.retroponggame
+package com.noor.yasser.ps.retroponggame.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
