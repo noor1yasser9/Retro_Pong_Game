@@ -1,10 +1,12 @@
 package com.noor.yasser.ps.retroponggame.model
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.content.ContextCompat
@@ -28,20 +30,70 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
     private var mLastTouchY: Float? = null
 
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+        initPongTable(context!!, attrs!!)
+    }
+
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
-    )
+    ) {
+        initPongTable(context!!, attrs!!)
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        canvas?.drawColor(ContextCompat.getColor(mContext!!, R.color.table_color))
+        canvas?.drawRect(
+            0f,
+            0f,
+            mTableWidth!!.toFloat(),
+            mTableHeight!!.toFloat(),
+            mTableBoundPaint!!
+        )
+
+        val middle = mTableWidth!! / 2
+        canvas?.drawLine(
+            middle.toFloat(),
+            1f,
+            middle.toFloat(),
+            mTableHeight!!.toFloat() - 1,
+            mNetPaint!!
+        )
+
+
+        mPlayer?.draw(canvas!!)
+        mOpponent?.draw(canvas!!)
+        mBall?.draw(canvas!!)
+    }
+
+    fun doAI(){
+
+    }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        mTableWidth = width
+        mTableHeight = height
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return super.onTouchEvent(event)
+    }
+
+    fun movePlayerRacquet(dy: Float, player: Player) {
+
+    }
+
+    fun isTouchOnRacket(event: MotionEvent?, mPlayer: Player): Boolean {
+        return mPlayer.bounds.contains(event!!.x, event.y)
+
     }
 
     fun initPongTable(context: Context, attr: AttributeSet) {
@@ -75,7 +127,7 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
         ballPaint.isAntiAlias = true
         ballPaint.color = ContextCompat.getColor(context, R.color.ball_color)
         mBall =
-            Ball(radius = ballRadius,paint = ballPaint)
+            Ball(radius = ballRadius, paint = ballPaint)
 
         //Draw middle line
         mNetPaint = Paint()
@@ -97,7 +149,7 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
         mAiMoveProbability = 0.8f
 
 
-
     }
+
 
 }
