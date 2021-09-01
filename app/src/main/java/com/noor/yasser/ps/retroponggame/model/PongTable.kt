@@ -11,6 +11,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.content.ContextCompat
 import com.noor.yasser.ps.retroponggame.R
+import com.noor.yasser.ps.retroponggame.utils.PHY_RACQUET_SPEED
 
 class PongTable : SurfaceView, SurfaceHolder.Callback {
 
@@ -68,8 +69,19 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
         mBall?.draw(canvas!!)
     }
 
-    fun doAI(){
-
+    fun doAI() {
+        if (mOpponent!!.bounds.top > mBall!!.cy) {
+            movePlayer(
+                mOpponent!!,
+                mOpponent!!.bounds.left,
+                mOpponent!!.bounds.top - PHY_RACQUET_SPEED
+            )
+        } else if (mOpponent!!.bounds.top + mOpponent!!.requestHeight < mBall!!.cy){
+            movePlayer(
+                mOpponent!!,
+                mOpponent!!.bounds.left,
+                mOpponent!!.bounds.top + PHY_RACQUET_SPEED
+            )        }
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -88,12 +100,32 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
     }
 
     fun movePlayerRacquet(dy: Float, player: Player) {
-
+        synchronized(mHolder) {
+            movePlayer(player, player.bounds.left, player.bounds.top + dy)
+        }
     }
 
     fun isTouchOnRacket(event: MotionEvent?, mPlayer: Player): Boolean {
         return mPlayer.bounds.contains(event!!.x, event.y)
 
+    }
+
+    @Synchronized
+    fun movePlayer(player: Player, left: Float, top: Float) {
+        var mLeft = left
+        if (left < 2) {
+            mLeft = 2f
+        } else if (mLeft + player.requestWidth >= mTableWidth!! - 2) {
+            mLeft = (mTableWidth!! - player.requestWidth - 2).toFloat()
+        }
+        var mTop = top
+        if (top < 0) {
+            mTop = 0f
+        } else if (top + player.requestHeight > mTableHeight!!) {
+            mTop = (mTableHeight!! - player.requestHeight - 1).toFloat()
+        }
+
+        player.bounds.offset(mLeft, mTop)
     }
 
     fun initPongTable(context: Context, attr: AttributeSet) {
