@@ -1,6 +1,7 @@
 package com.noor.yasser.ps.retroponggame.model
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
@@ -76,12 +77,13 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
                 mOpponent!!.bounds.left,
                 mOpponent!!.bounds.top - PHY_RACQUET_SPEED
             )
-        } else if (mOpponent!!.bounds.top + mOpponent!!.requestHeight < mBall!!.cy){
+        } else if (mOpponent!!.bounds.top + mOpponent!!.requestHeight < mBall!!.cy) {
             movePlayer(
                 mOpponent!!,
                 mOpponent!!.bounds.left,
                 mOpponent!!.bounds.top + PHY_RACQUET_SPEED
-            )        }
+            )
+        }
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -134,47 +136,52 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
         mHolder.addCallback(this)
 
         //Game Thread or Game Loop initialize
-
-        val a = context.obtainStyledAttributes(attr, R.styleable.PongTable)
+        val a: TypedArray = context.obtainStyledAttributes(attr, R.styleable.PongTable)
         val racketHeight = a.getInteger(R.styleable.PongTable_racketHeight, 340)
         val racketWidth = a.getInteger(R.styleable.PongTable_racketWidth, 100)
         val ballRadius = a.getInteger(R.styleable.PongTable_ballRadius, 25)
 
-        //set Player
+        // Set Player
+
+        // Set Player
         val playerPaint = Paint()
         playerPaint.isAntiAlias = true
-        playerPaint.color = ContextCompat.getColor(context, R.color.player_color)
-        mPlayer =
-            Player(requestHeight = racketHeight, requestWidth = racketWidth, paint = playerPaint)
+        playerPaint.color = ContextCompat.getColor(mContext!!, R.color.player_color)
+        mPlayer = Player(racketWidth, racketHeight, paint = playerPaint)
 
-        //set Opponent
+        // Set Opponent
+
+        // Set Opponent
         val opponentPaint = Paint()
         opponentPaint.isAntiAlias = true
-        opponentPaint.color = ContextCompat.getColor(context, R.color.opponent_color)
-        mPlayer =
-            Player(requestHeight = racketHeight, requestWidth = racketWidth, paint = playerPaint)
+        opponentPaint.color = ContextCompat.getColor(mContext!!, R.color.opponent_color)
+        mOpponent = Player(racketWidth, racketHeight, paint = opponentPaint)
 
-        //set Ball
+        // Set Ball
+
+        // Set Ball
         val ballPaint = Paint()
         ballPaint.isAntiAlias = true
-        ballPaint.color = ContextCompat.getColor(context, R.color.ball_color)
-        mBall =
-            Ball(radius = ballRadius, paint = ballPaint)
+        ballPaint.color = ContextCompat.getColor(mContext!!, R.color.ball_color)
+        mBall = Ball(radius = ballRadius, paint = ballPaint)
 
-        //Draw middle line
+        // Draw Middle lines
+
+        // Draw Middle lines
         mNetPaint = Paint()
-        mNetPaint?.isAntiAlias = true
-        mNetPaint?.color = Color.WHITE
-        mNetPaint?.alpha = 80
-        mNetPaint?.style = Paint.Style.FILL_AND_STROKE
-        mNetPaint?.strokeWidth = 10f
-        mNetPaint?.pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 0f)
+        mNetPaint!!.isAntiAlias = true
+        mNetPaint!!.color = Color.WHITE
+        mNetPaint!!.alpha = 80
+        mNetPaint!!.style = Paint.Style.FILL_AND_STROKE
+        mNetPaint!!.strokeWidth = 10f
+        mNetPaint!!.pathEffect = DashPathEffect(floatArrayOf(5f, 5f), 0f)
 
+        // Draw Bounds
 
-        //Draw Bounds
+        // Draw Bounds
         mTableBoundPaint = Paint()
         mTableBoundPaint?.isAntiAlias = true
-        mTableBoundPaint?.color = Color.BLACK
+        mTableBoundPaint?.color = ContextCompat.getColor(mContext!!, R.color.table_color)
         mTableBoundPaint?.style = Paint.Style.STROKE
         mTableBoundPaint?.strokeWidth = 15f
 

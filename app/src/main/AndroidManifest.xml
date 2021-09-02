@@ -11,7 +11,9 @@
         android:theme="@style/Theme.RetroPongGame">
         <activity
             android:name=".ui.GameActivity"
-            android:exported="true">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +21,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.PongActivity"/>
+            android:name=".ui.PongActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>
