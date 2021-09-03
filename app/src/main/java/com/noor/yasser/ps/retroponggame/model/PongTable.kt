@@ -61,7 +61,7 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
 
         val a = ctx.obtainStyledAttributes(attr, R.styleable.PongTable)
         val racketHeight = a.getInteger(R.styleable.PongTable_racketHeight, 440)
-        val racketWidth = a.getInteger(R.styleable.PongTable_racketWidth, 100)
+        val racketWidth = a.getInteger(R.styleable.PongTable_racketWidth, 50)
         val ballRadius = a.getInteger(R.styleable.PongTable_ballRadius, 25)
 
         // Set Player
@@ -96,7 +96,7 @@ class PongTable : SurfaceView, SurfaceHolder.Callback {
         // Draw Bounds
         mTalbeBoundsPaint = Paint()
         mTalbeBoundsPaint!!.isAntiAlias = true
-        mTalbeBoundsPaint!!.color = ContextCompat.getColor(mContext!!, R.color.table_color)
+        mTalbeBoundsPaint!!.color = ContextCompat.getColor(mContext!!, R.color.player_color)
         mTalbeBoundsPaint!!.style = Paint.Style.STROKE
         mTalbeBoundsPaint!!.strokeWidth = 15f
         mAiMovePorbability = 0.8f

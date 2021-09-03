@@ -11,6 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:background="@drawable/play_button_bg"
+        android:backgroundTint="@color/black"
+        android:fontFamily="cursive"
         android:onClick="startGame"
         android:text="Play Game"
         android:textAllCaps="false"
@@ -28,11 +30,12 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pong_logo" />
+        app:srcCompat="@drawable/a" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

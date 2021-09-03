@@ -10,8 +10,8 @@
     
     
     <color name="black_overlay">#24000000</color>
-    <color name="table_color">#454242</color>
-    <color name="player_color">#f1e045</color>
-    <color name="opponent_color">#09cde7</color>
+    <color name="table_color">#000000</color>
+    <color name="player_color">#FFFFFF</color>
+    <color name="opponent_color">#FFFFFF</color>
     <color name="ball_color">#fafafa</color>
 </resources>

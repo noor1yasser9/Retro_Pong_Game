@@ -14,6 +14,7 @@ data class Player(
 
      fun draw(canvas: Canvas) {
         canvas.drawRoundRect(bounds, 5f, 5f, paint)
+
     }
 
 
