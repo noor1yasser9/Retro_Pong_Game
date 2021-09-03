@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Retro Pong Game</string>
+
+    <string name="state">Ready</string>
+    <string name="mode_win">You Won</string>
+    <string name="mode_loss">You Loss</string>
+    <string name="mode_paused">Paused</string>
 </resources>
