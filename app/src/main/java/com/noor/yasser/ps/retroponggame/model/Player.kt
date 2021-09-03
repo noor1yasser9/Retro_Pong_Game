@@ -5,7 +5,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 
 data class Player(
-    val requestWidth: Int,
+    var requestWidth: Int,
     val requestHeight: Int,
     var score: Int = 0,
     val paint: Paint,
